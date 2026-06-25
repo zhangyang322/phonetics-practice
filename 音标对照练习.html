@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)file:///C:/Users/Administrator/Documents/Codex/2026-06-25/xin/outputs/github-pages/index.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>音标对照练习</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172029;
+      --muted: #5f6b76;
+      --line: #d8dee5;
+      --panel: #ffffff;
+      --soft: #f3f6f8;
+      --accent: #0d766e;
+      --accent-dark: #095c56;
+      --warm: #b35a18;
+      --ok: #2d7d46;
+      --bad: #b13f32;
+      --shadow: 0 12px 30px rgba(24, 36, 48, .10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(13, 118, 110, .08), transparent 38%),
+        linear-gradient(315deg, rgba(179, 90, 24, .08), transparent 35%),
+        #eef3f5;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      min-height: 42px;
+      border-radius: 7px;
+      padding: 0 14px;
+      cursor: pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+
+    button:hover {
+      border-color: #aab7c2;
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: white;
+    }
+
+    button.primary:hover {
+      border-color: var(--accent-dark);
+      background: var(--accent-dark);
+    }
+
+    button.icon {
+      width: 42px;
+      padding: 0;
+      display: inline-grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    .app {
+      width: min(1180px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 22px 0 34px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.55;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(82px, 1fr));
+      gap: 8px;
+      min-width: 286px;
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, .75);
+      border: 1px solid rgba(216, 222, 229, .9);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 22px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: rgba(255, 255, 255, .78);
+      border: 1px solid rgba(216, 222, 229, .9);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      min-height: 38px;
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .tab.active {
+      background: #dff0ee;
+      border-color: #9ccdc8;
+      color: #064a45;
+      font-weight: 700;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    select {
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: white;
+      padding: 0 10px;
+      color: var(--ink);
+      min-width: 130px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, .88);
+      border: 1px solid rgba(216, 222, 229, .95);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(243, 246, 248, .85);
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .panel-body {
+      padding: 16px;
+    }
+
+    .practice-card {
+      min-height: 454px;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+    }
+
+    .pair-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .sound-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 205px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 9px;
+    }
+
+    .ipa {
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: clamp(38px, 7vw, 64px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .sound-name {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .cue {
+      line-height: 1.55;
+      color: #36424c;
+    }
+
+    .word-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .word {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .transcript {
+      color: var(--muted);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .compare-note {
+      background: #fff8ed;
+      border: 1px solid #efd4ad;
+      border-radius: 8px;
+      padding: 12px 14px;
+      line-height: 1.55;
+      color: #563315;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .quiz-word {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+      text-align: center;
+      padding: 22px 10px 10px;
+    }
+
+    .quiz-word .ipa {
+      font-size: clamp(54px, 12vw, 92px);
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .option {
+      min-height: 74px;
+      text-align: left;
+      padding: 12px;
+      display: grid;
+      align-content: center;
+      gap: 4px;
+    }
+
+    .option strong {
+      font-size: 22px;
+    }
+
+    .option.correct {
+      border-color: #83bd94;
+      background: #e9f6ed;
+    }
+
+    .option.wrong {
+      border-color: #e09b91;
+      background: #fae9e6;
+    }
+
+    .feedback {
+      min-height: 44px;
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: var(--soft);
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .feedback.good {
+      background: #e9f6ed;
+      color: var(--ok);
+    }
+
+    .feedback.bad {
+      background: #fae9e6;
+      color: var(--bad);
+    }
+
+    .chart {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+      gap: 8px;
+      max-height: 500px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .tile {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 8px;
+      padding: 10px;
+      min-height: 104px;
+      display: grid;
+      gap: 5px;
+      align-content: start;
+    }
+
+    .tile.selected {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--accent);
+    }
+
+    .tile .small-ipa {
+      font-size: 30px;
+      font-weight: 800;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .tile .label {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .tile .example {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .lesson {
+      display: grid;
+      gap: 10px;
+      line-height: 1.55;
+    }
+
+    .lesson h3 {
+      margin: 8px 0 0;
+      font-size: 16px;
+    }
+
+    .lesson ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 860px) {
+      header,
+      .layout,
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .stats,
+      .filters {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      select {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .app {
+        width: min(100vw - 18px, 1180px);
+        padding-top: 12px;
+      }
+
+      .pair-grid,
+      .options,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .sound-card {
+        min-height: 185px;
+      }
+
+      .panel-body {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div>
+        <h1>音标对照练习</h1>
+        <p class="subtitle">按“看音标、听单词、比口型、选答案”的顺序练。重点放在中文学习者最容易混淆的英语音上。</p>
+      </div>
+      <section class="stats" aria-label="练习统计">
+        <div class="stat"><span>已答</span><strong id="answered">0</strong></div>
+        <div class="stat"><span>正确</span><strong id="correct">0</strong></div>
+        <div class="stat"><span>正确率</span><strong id="accuracy">0%</strong></div>
+      </section>
+    </header>
+
+    <nav class="toolbar" aria-label="练习工具栏">
+      <div class="tabs">
+        <button class="tab active" data-mode="contrast">对照卡</button>
+        <button class="tab" data-mode="quiz">听辨选择</button>
+        <button class="tab" data-mode="chart">音标表</button>
+      </div>
+      <div></div>
+      <div class="filters">
+        <select id="category">
+          <option value="all">全部类型</option>
+          <option value="vowel">元音</option>
+          <option value="consonant">辅音</option>
+        </select>
+        <select id="voiceMode">
+          <option value="auto">自动语音</option>
+          <option value="slow">慢速语音</option>
+        </select>
+      </div>
+    </nav>
+
+    <section class="layout">
+      <article class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title" id="mainTitle">对照卡：/i:/ 与 /i/</h2>
+          <div class="actions">
+            <button class="icon" id="prevBtn" title="上一组" aria-label="上一组">‹</button>
+            <button class="icon" id="nextBtn" title="下一组" aria-label="下一组">›</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <section id="contrastView" class="practice-card">
+        <div class="pair-grid">
+          
+        <div class="sound-card">
+          <div class="ipa">/i:/</div>
+          <div class="sound-name">长元音</div>
+          <div class="cue">嘴角微拉，舌位高，声音拉长。</div>
+          <div class="word-row">
+            <span class="word">sheep</span>
+            <span class="transcript">/ʃiːp/</span>
+            <button class="icon" title="朗读 sheep" aria-label="朗读 sheep" data-say="sheep">▶</button>
+          </div>
+        </div>
+      
+          
+        <div class="sound-card">
+          <div class="ipa">/i/</div>
+          <div class="sound-name">短元音</div>
+          <div class="cue">嘴型放松，声音短促，不要拖长。</div>
+          <div class="word-row">
+            <span class="word">ship</span>
+            <span class="transcript">/ʃɪp/</span>
+            <button class="icon" title="朗读 ship" aria-label="朗读 ship" data-say="ship">▶</button>
+          </div>
+        </div>
+      
+        </div>
+        <div class="compare-note">关键差别是长短和松紧：/i:/ 嘴角更向两边拉，声音更长；/i/ 更短、更放松。</div>
+        <div class="actions">
+          <button class="primary" id="playPair">连续朗读</button>
+          <button id="randomPair">随机一组</button>
+        </div>
+      </section>
+          <section id="quizView" class="practice-card hidden"></section>
+          <section id="chartView" class="hidden"></section>
+        </div>
+      </article>
+
+      <aside class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">练习提示</h2>
+          <button id="resetBtn" title="清空统计">重置</button>
+        </div>
+        <div class="panel-body lesson">
+          <h3>三步练一组</h3>
+          <ul>
+            <li>先只看两个音标，说出嘴型差别。</li>
+            <li>点击朗读，听两个例词的差别。</li>
+            <li>遮住文字，只凭声音选答案。</li>
+          </ul>
+          <h3>录音自查</h3>
+          <ul>
+            <li>读例词时只改一个点：舌位、嘴唇或长短。</li>
+            <li>读完马上听原音，不要凭感觉判断。</li>
+            <li>连续三次读准，再换下一组。</li>
+          </ul>
+          <h3>今日目标</h3>
+          <p>新手每天练 10 分钟：元音 2 组，辅音 1 组，最后做 8 题听辨。</p>
+          <div class="feedback" id="voiceHint">如果浏览器没有合适英文语音，朗读可能带口音；仍可用文字对照和自读练习。</div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const pairs = [
+      {
+        type: "vowel",
+        title: "/i:/ 与 /i/",
+        note: "关键差别是长短和松紧：/i:/ 嘴角更向两边拉，声音更长；/i/ 更短、更放松。",
+        left: { ipa: "/i:/", name: "长元音", word: "sheep", phonetic: "/ʃiːp/", cue: "嘴角微拉，舌位高，声音拉长。" },
+        right: { ipa: "/i/", name: "短元音", word: "ship", phonetic: "/ʃɪp/", cue: "嘴型放松，声音短促，不要拖长。" }
+      },
+      {
+        type: "vowel",
+        title: "/e/ 与 /æ/",
+        note: "/æ/ 的嘴巴打开更大，像在夸张地说“诶啊”；/e/ 更短更窄。",
+        left: { ipa: "/e/", name: "短元音", word: "bed", phonetic: "/bed/", cue: "嘴半开，舌前部抬起，声音干脆。" },
+        right: { ipa: "/æ/", name: "短元音", word: "bad", phonetic: "/bæd/", cue: "下巴放低，嘴打开更大，声音更扁。" }
+      },
+      {
+        type: "vowel",
+        title: "/ʌ/ 与 /ɑ:/",
+        note: "/ʌ/ 短而居中；/ɑ:/ 口腔打开更大，声音更靠后也更长。",
+        left: { ipa: "/ʌ/", name: "短元音", word: "cut", phonetic: "/kʌt/", cue: "嘴自然张开，声音短，不要读成“啊”。" },
+        right: { ipa: "/ɑ:/", name: "长元音", word: "cart", phonetic: "/kɑːt/", cue: "嘴张大，舌位靠后，声音拉长。" }
+      },
+      {
+        type: "vowel",
+        title: "/əʊ/ 与 /ɔ:/",
+        note: "/əʊ/ 是滑动的双元音，从中间滑向圆唇；/ɔ:/ 是稳定的长音。",
+        left: { ipa: "/əʊ/", name: "双元音", word: "go", phonetic: "/ɡəʊ/", cue: "先放松，再向圆唇滑动。" },
+        right: { ipa: "/ɔ:/", name: "长元音", word: "saw", phonetic: "/sɔː/", cue: "嘴唇圆，声音稳定拉长，不滑动。" }
+      },
+      {
+        type: "consonant",
+        title: "/s/ 与 /θ/",
+        note: "/θ/ 舌尖要轻轻放在上下齿之间；/s/ 舌尖在齿后，不伸出来。",
+        left: { ipa: "/s/", name: "清辅音", word: "sink", phonetic: "/sɪŋk/", cue: "舌尖在牙齿后方，气流从中间挤出。" },
+        right: { ipa: "/θ/", name: "清辅音", word: "think", phonetic: "/θɪŋk/", cue: "舌尖轻触上下齿，送气，不要咬太重。" }
+      },
+      {
+        type: "consonant",
+        title: "/z/ 与 /ð/",
+        note: "这组都要震动声带。/ð/ 舌尖在齿间，/z/ 舌尖在齿后。",
+        left: { ipa: "/z/", name: "浊辅音", word: "Zen", phonetic: "/zen/", cue: "声带震动，舌尖不要伸出牙齿。" },
+        right: { ipa: "/ð/", name: "浊辅音", word: "then", phonetic: "/ðen/", cue: "舌尖轻放齿间，同时让声带震动。" }
+      },
+      {
+        type: "consonant",
+        title: "/ʃ/ 与 /tʃ/",
+        note: "/ʃ/ 是连续摩擦音；/tʃ/ 开头有一个短促爆破，像先堵住再放开。",
+        left: { ipa: "/ʃ/", name: "清辅音", word: "ship", phonetic: "/ʃɪp/", cue: "嘴唇稍圆，气流连续摩擦。" },
+        right: { ipa: "/tʃ/", name: "清辅音", word: "chip", phonetic: "/tʃɪp/", cue: "先堵住气流，再短促放开。" }
+      },
+      {
+        type: "consonant",
+        title: "/l/ 与 /r/",
+        note: "/l/ 舌尖碰上齿龈；/r/ 舌尖卷起或后缩，不碰上颚。",
+        left: { ipa: "/l/", name: "浊辅音", word: "light", phonetic: "/laɪt/", cue: "舌尖顶住上齿后方，声带震动。" },
+        right: { ipa: "/r/", name: "浊辅音", word: "right", phonetic: "/raɪt/", cue: "舌尖后缩，不要碰到上颚。" }
+      },
+      {
+        type: "consonant",
+        title: "/v/ 与 /w/",
+        note: "/v/ 用上齿轻碰下唇；/w/ 是圆唇滑音，牙齿不碰嘴唇。",
+        left: { ipa: "/v/", name: "浊辅音", word: "vest", phonetic: "/vest/", cue: "上齿轻碰下唇，让气流摩擦。" },
+        right: { ipa: "/w/", name: "浊辅音", word: "west", phonetic: "/west/", cue: "嘴唇先圆再展开，牙齿不要碰唇。" }
+      }
+    ];
+
+    const chartSounds = [
+      ["/i:/", "长元音", "sheep"], ["/i/", "短元音", "ship"], ["/e/", "短元音", "bed"], ["/æ/", "短元音", "bad"],
+      ["/ʌ/", "短元音", "cut"], ["/ɑ:/", "长元音", "cart"], ["/ɔ:/", "长元音", "saw"], ["/əʊ/", "双元音", "go"],
+      ["/aɪ/", "双元音", "my"], ["/eɪ/", "双元音", "say"], ["/aʊ/", "双元音", "now"], ["/ɔɪ/", "双元音", "boy"],
+      ["/s/", "清辅音", "sink"], ["/z/", "浊辅音", "Zen"], ["/θ/", "清辅音", "think"], ["/ð/", "浊辅音", "then"],
+      ["/ʃ/", "清辅音", "ship"], ["/tʃ/", "清辅音", "chip"], ["/l/", "浊辅音", "light"], ["/r/", "浊辅音", "right"],
+      ["/v/", "浊辅音", "vest"], ["/w/", "浊辅音", "west"], ["/dʒ/", "浊辅音", "jam"], ["/ʒ/", "浊辅音", "vision"]
+    ];
+
+    let mode = "contrast";
+    let current = 0;
+    let quizAnswer = null;
+    let locked = false;
+    let stats = { answered: 0, correct: 0 };
+
+    const $ = (selector) => document.querySelector(selector);
+    const contrastView = $("#contrastView");
+    const quizView = $("#quizView");
+    const chartView = $("#chartView");
+    const category = $("#category");
+    const voiceMode = $("#voiceMode");
+
+    function filteredPairs() {
+      const value = category.value;
+      return value === "all" ? pairs : pairs.filter((pair) => pair.type === value);
+    }
+
+    function speak(text) {
+      if (!("speechSynthesis" in window)) {
+        $("#voiceHint").textContent = "当前浏览器不支持语音朗读，可以继续用音标和例词做自读练习。";
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      const voice = voices.find((item) => item.lang && item.lang.toLowerCase().startsWith("en"));
+      if (voice) utterance.voice = voice;
+      utterance.lang = voice ? voice.lang : "en-US";
+      utterance.rate = voiceMode.value === "slow" ? 0.68 : 0.86;
+      utterance.pitch = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function playPair(pair) {
+      speak(`${pair.left.word}. ${pair.right.word}. ${pair.left.word}. ${pair.right.word}.`);
+    }
+
+    function renderSoundCard(sound) {
+      return `
+        <div class="sound-card">
+          <div class="ipa">${sound.ipa}</div>
+          <div class="sound-name">${sound.name}</div>
+          <div class="cue">${sound.cue}</div>
+          <div class="word-row">
+            <span class="word">${sound.word}</span>
+            <span class="transcript">${sound.phonetic}</span>
+            <button class="icon" title="朗读 ${sound.word}" aria-label="朗读 ${sound.word}" data-say="${sound.word}">▶</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderContrast() {
+      const list = filteredPairs();
+      if (!list.length) return;
+      current = (current + list.length) % list.length;
+      const pair = list[current];
+      $("#mainTitle").textContent = `对照卡：${pair.title}`;
+      contrastView.innerHTML = `
+        <div class="pair-grid">
+          ${renderSoundCard(pair.left)}
+          ${renderSoundCard(pair.right)}
+        </div>
+        <div class="compare-note">${pair.note}</div>
+        <div class="actions">
+          <button class="primary" id="playPair">连续朗读</button>
+          <button id="randomPair">随机一组</button>
+        </div>
+      `;
+      contrastView.querySelectorAll("[data-say]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.say));
+      });
+      $("#playPair").addEventListener("click", () => playPair(pair));
+      $("#randomPair").addEventListener("click", () => {
+        current = Math.floor(Math.random() * list.length);
+        render();
+      });
+    }
+
+    function makeQuiz() {
+      const list = filteredPairs();
+      const pair = list[current % list.length];
+      const side = Math.random() > .5 ? "left" : "right";
+      quizAnswer = pair[side];
+      locked = false;
+      $("#mainTitle").textContent = `听辨选择：${pair.title}`;
+      quizView.innerHTML = `
+        <div class="quiz-word">
+          <div class="ipa">?</div>
+          <button class="primary" id="playQuiz">朗读题目</button>
+        </div>
+        <div class="options">
+          <button class="option" data-word="${pair.left.word}">
+            <strong>${pair.left.word}</strong>
+            <span>${pair.left.phonetic} · ${pair.left.ipa}</span>
+          </button>
+          <button class="option" data-word="${pair.right.word}">
+            <strong>${pair.right.word}</strong>
+            <span>${pair.right.phonetic} · ${pair.right.ipa}</span>
+          </button>
+        </div>
+        <div class="feedback" id="feedback">先听题目，再选择你听到的单词。</div>
+        <div class="actions">
+          <button id="showAnswer">显示答案</button>
+          <button id="nextQuiz">下一题</button>
+        </div>
+      `;
+      $("#playQuiz").addEventListener("click", () => speak(quizAnswer.word));
+      $("#showAnswer").addEventListener("click", () => revealAnswer(false));
+      $("#nextQuiz").addEventListener("click", () => {
+        current = (current + 1) % list.length;
+        makeQuiz();
+      });
+      quizView.querySelectorAll(".option").forEach((button) => {
+        button.addEventListener("click", () => chooseAnswer(button));
+      });
+      setTimeout(() => speak(quizAnswer.word), 250);
+    }
+
+    function chooseAnswer(button) {
+      if (locked) return;
+      locked = true;
+      const ok = button.dataset.word === quizAnswer.word;
+      stats.answered += 1;
+      stats.correct += ok ? 1 : 0;
+      updateStats();
+      button.classList.add(ok ? "correct" : "wrong");
+      revealAnswer(ok);
+    }
+
+    function revealAnswer(wasCorrect) {
+      quizView.querySelectorAll(".option").forEach((button) => {
+        if (button.dataset.word === quizAnswer.word) button.classList.add("correct");
+      });
+      const feedback = $("#feedback");
+      feedback.className = `feedback ${wasCorrect ? "good" : "bad"}`;
+      feedback.textContent = `${wasCorrect ? "答对了" : "答案是"}：${quizAnswer.word} ${quizAnswer.phonetic}。${quizAnswer.cue}`;
+    }
+
+    function renderChart() {
+      $("#mainTitle").textContent = "音标表";
+      chartView.innerHTML = `
+        <div class="chart">
+          ${chartSounds.map(([ipa, label, example]) => `
+            <button class="tile" data-say="${example}">
+              <span class="small-ipa">${ipa}</span>
+              <span class="label">${label}</span>
+              <span class="example">${example}</span>
+            </button>
+          `).join("")}
+        </div>
+      `;
+      chartView.querySelectorAll(".tile").forEach((tile) => {
+        tile.addEventListener("click", () => {
+          chartView.querySelectorAll(".tile").forEach((item) => item.classList.remove("selected"));
+          tile.classList.add("selected");
+          speak(tile.dataset.say);
+        });
+      });
+    }
+
+    function setMode(nextMode) {
+      mode = nextMode;
+      document.querySelectorAll(".tab").forEach((button) => {
+        button.classList.toggle("active", button.dataset.mode === mode);
+      });
+      contrastView.classList.toggle("hidden", mode !== "contrast");
+      quizView.classList.toggle("hidden", mode !== "quiz");
+      chartView.classList.toggle("hidden", mode !== "chart");
+      render();
+    }
+
+    function render() {
+      if (mode === "contrast") renderContrast();
+      if (mode === "quiz") makeQuiz();
+      if (mode === "chart") renderChart();
+    }
+
+    function updateStats() {
+      $("#answered").textContent = stats.answered;
+      $("#correct").textContent = stats.correct;
+      $("#accuracy").textContent = stats.answered ? `${Math.round(stats.correct / stats.answered * 100)}%` : "0%";
+    }
+
+    document.querySelectorAll(".tab").forEach((button) => {
+      button.addEventListener("click", () => setMode(button.dataset.mode));
+    });
+
+    $("#prevBtn").addEventListener("click", () => {
+      current -= 1;
+      render();
+    });
+
+    $("#nextBtn").addEventListener("click", () => {
+      current += 1;
+      render();
+    });
+
+    $("#resetBtn").addEventListener("click", () => {
+      stats = { answered: 0, correct: 0 };
+      updateStats();
+    });
+
+    category.addEventListener("change", () => {
+      current = 0;
+      render();
+    });
+
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.onvoiceschanged = () => {};
+    }
+
+    updateStats();
+    render();
+  </script>
+
+
+</body></html>
